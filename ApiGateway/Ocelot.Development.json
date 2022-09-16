@@ -1,0 +1,34 @@
+{
+
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/api/Account/Login",
+      "DownstreamScheme": "https",
+      "DownstreamHttopMethod": "POST",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7129
+        }
+      ],
+      "UpstreamPathTemplate": "/CustomerServicePortal/api/Login", //From api gateway
+      "UpstreamHttpMethod": [ "POST" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/Account/Register",
+      "DownstreamScheme": "https",
+      "DownstreamHttopMethod": "POST",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7129
+        }
+      ],
+      "UpstreamPathTemplate": "/CustomerServicePortal/api/Register", //From api gateway
+      "UpstreamHttpMethod": [ "POST" ]
+    }
+  ],
+  "GlobalConfiguration": {
+    "BaseUrl": "https://localhost:7276"
+  }
+}
