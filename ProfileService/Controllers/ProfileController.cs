@@ -56,9 +56,9 @@ namespace ProfileService.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(BaseResponse<string>), 200)]
         [HttpGet("[action]")]
-        public async Task<IActionResult> GetProfiles()
+        public async Task<IActionResult> GetProfiles([FromQuery] string userName)
         {
-            var result = await _userProfileService.ProfileDetails();
+            var result = await _userProfileService.ProfileDetails(userName);
             return Ok(result);
         }
 
@@ -71,9 +71,9 @@ namespace ProfileService.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(BaseResponse<string>), 200)]
         [HttpGet("[action]")]
-        public async Task<IActionResult> GetContacts()
+        public async Task<IActionResult> GetContacts([FromQuery] string userName)
         {
-            var result = await _userProfileService.ContactDetails();
+            var result = await _userProfileService.ContactDetails(userName);
             return Ok(result);
         }
 

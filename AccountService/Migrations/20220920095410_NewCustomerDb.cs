@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace AccountService.Migrations
 {
-    public partial class CustomerDbMigration : Migration
+    public partial class NewCustomerDb : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -235,7 +235,7 @@ namespace AccountService.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName", "UserRole" },
-                values: new object[] { "f695eda9-9428-43fe-a593-c112d7ef09e2", 0, "fc4dfe63-154e-4131-b961-a34cb1ad91e0", "sam@gmail.com", false, false, null, "SAM@GMAIL.COM", null, "123456", null, false, "c175beba-6291-47b9-914e-2bcd81bfddc2", false, "Sam", 0 });
+                values: new object[] { "fc30ee87-db7e-4dda-b98e-663f0953ce30", 0, "b6d275d8-2919-41c7-a9de-a90731ffc4ba", "sam@gmail.com", false, false, null, "SAM@GMAIL.COM", null, "123456", null, false, "99ffc882-168b-4607-ad0e-c3fb8fb0912b", false, "Sam", 0 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

@@ -98,16 +98,16 @@ namespace AccountService.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "f695eda9-9428-43fe-a593-c112d7ef09e2",
+                            Id = "fc30ee87-db7e-4dda-b98e-663f0953ce30",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "fc4dfe63-154e-4131-b961-a34cb1ad91e0",
+                            ConcurrencyStamp = "b6d275d8-2919-41c7-a9de-a90731ffc4ba",
                             Email = "sam@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "SAM@GMAIL.COM",
                             PasswordHash = "123456",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "c175beba-6291-47b9-914e-2bcd81bfddc2",
+                            SecurityStamp = "99ffc882-168b-4607-ad0e-c3fb8fb0912b",
                             TwoFactorEnabled = false,
                             UserId = 0,
                             UserName = "Sam",

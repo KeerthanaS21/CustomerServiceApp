@@ -4,6 +4,7 @@ using CustomerRequestService.Interfaces;
 using CustomerRequestService.Models;
 using CustomerRequestService.Strings;
 using CustomerRequestService.Wrappers;
+using Microsoft.EntityFrameworkCore;
 
 namespace CustomerRequestService.Services
 {
@@ -27,10 +28,10 @@ namespace CustomerRequestService.Services
             serviceRequest.RequestDetail = requestData.RequestDetail;
             serviceRequest.RequestStatus = StatusEnum.Unopen.ToString();
             serviceRequest.RequestCreatedBy = requestData.RequestCreatedBy;
-            serviceRequest.RequestCreatedDate = DateTime.Now;
+            serviceRequest.RequestCreatedDate = DateTime.Today.Date;
 
             _dbContext.ServiceRequests.Add(serviceRequest);
-            _dbContext.SaveChanges();
+            await _dbContext.SaveChangesAsync();
 
             return BaseResponse<string>.Ok(ResponseString.MessageAfterRequestCreated);
 
@@ -46,36 +47,37 @@ namespace CustomerRequestService.Services
                 requestDetails = GetRequest(serviceRequest);
                 return BaseResponse<List<RequestDetails>>.Ok(requestDetails);
             }
-            var serviceRequests = _dbContext.ServiceRequests.ToList();
+            var serviceRequests = await _dbContext.ServiceRequests.ToListAsync();
             requestDetails = GetRequest(serviceRequests);
             return BaseResponse<List<RequestDetails>>.Ok(requestDetails);
         }
 
         public async Task<BaseResponse<string>> AssignRequestTo(RequestDetails requestData)
         {
-            if(requestData.RequestStatus == StatusEnum.Closed.ToString())
+            if(requestData.RequestStatus.ToLower() == StatusEnum.Closed.ToString().ToLower())
             {
                 return BaseResponse<string>.Ok(ResponseString.MessageWhenRequestClosed);
             }
+            string id = _dbContext.AspNetUsers.Where(x => x.UserName == requestData.RequestAssignedTo).Select(x=>x.Id).FirstOrDefault();
             var request = _dbContext.ServiceRequests.Where(x => x.RequestId == requestData.RequestId).FirstOrDefault();
-            request.RequestAssignedTo = requestData.RequestAssignedTo;
+            request.RequestAssignedTo = id;
             request.RequestStatus = StatusEnum.Inprogress.ToString();
             _dbContext.Update(request);
-            _dbContext.SaveChanges();
+            await _dbContext.SaveChangesAsync();
             return BaseResponse<string>.Ok(ResponseString.MessageAfterAssign);
         }
 
         public async Task<BaseResponse<string>> AddRequestComment(RequestDetails requestData)
         {
             var request = _dbContext.ServiceRequests.Where(x => x.RequestId == requestData.RequestId).FirstOrDefault();
-            request.RequestAssigneeComments = requestData.RequestAssigneeComments +  "   " + requestData.RequestAssigneeComments;
-            if(requestData.RequestStatus == StatusEnum.Closed.ToString())
+            request.RequestAssigneeComments = request.RequestAssigneeComments +  "   " + requestData.RequestAssigneeComments;
+            if(requestData.RequestStatus.ToLower() == StatusEnum.Closed.ToString().ToLower())
             {
-                request.RequestClosedDate = DateTime.Now;
+                request.RequestClosedDate = DateTime.Now.Date;
             }
             request.RequestStatus = requestData.RequestStatus;
             _dbContext.ServiceRequests.Update(request);
-            _dbContext.SaveChanges();
+            await _dbContext.SaveChangesAsync();
             return BaseResponse<string>.Ok(ResponseString.MessageAfterAddComment);
         }
 
@@ -89,9 +91,9 @@ namespace CustomerRequestService.Services
                 request.RequestType = serviceRequest.RequestType;
                 request.RequestDetail =     serviceRequest.RequestDetail;
                 request.RequestStatus = serviceRequest.RequestStatus;
-                request.RequestAssignedTo = serviceRequest.RequestAssignedTo;
+                request.RequestAssignedTo = _dbContext.AspNetUsers.Where(x => x.Id == serviceRequest.RequestAssignedTo).Select(x => x.UserName).FirstOrDefault(); ;
                 request.RequestAssigneeComments = serviceRequest.RequestAssigneeComments;
-                request.RequestCreatedDate = serviceRequest.RequestCreatedDate;
+                request.RequestCreatedDate = serviceRequest.RequestCreatedDate.Date;
                 request.RequestCreatedBy = serviceRequest.RequestCreatedBy;
                 request.RequestClosedDate = serviceRequest.RequestClosedDate;
                 requestDetails.Add(request);
