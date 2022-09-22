@@ -24,8 +24,60 @@
           "Port": 7129
         }
       ],
-      "UpstreamPathTemplate": "/CustomerServicePortal/api/Register", //From api gateway
+      "UpstreamPathTemplate": "/CustomerServicePortal/api/Register",
       "UpstreamHttpMethod": [ "POST" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/Profile/GetProfiles",
+      "DownstreamScheme": "https",
+      "DownstreamHttopMethod": "GET",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7129
+        }
+      ],
+      "UpstreamPathTemplate": "/CustomerServicePortal/api/Profiles",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/Profile/GetContacts",
+      "DownstreamScheme": "https",
+      "DownstreamHttopMethod": "GET",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7129
+        }
+      ],
+      "UpstreamPathTemplate": "/CustomerServicePortal/api/Contacts",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/ServiceRequest/CreateServiceRequest",
+      "DownstreamScheme": "https",
+      "DownstreamHttopMethod": "POST",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7129
+        }
+      ],
+      "UpstreamPathTemplate": "/CustomerServicePortal/api/NewRequest",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/ServiceRequest/GetAllRequest",
+      "DownstreamScheme": "https",
+      "DownstreamHttopMethod": "GET",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7129
+        }
+      ],
+      "UpstreamPathTemplate": "/CustomerServicePortal/api/Requests",
+      "UpstreamHttpMethod": [ "GET" ]
     }
   ],
   "GlobalConfiguration": {
